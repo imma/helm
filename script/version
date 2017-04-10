@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+function version {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  local ver_helm="$(helm version --client --short 2>/dev/null | cut -d: -f2 | cut -d'+' -f1 | perl -pe 's{^\s*v}{}')"
+  jq -n --arg helm "$ver_helm" '{helm: $helm}'
+}
+
+version "$@"

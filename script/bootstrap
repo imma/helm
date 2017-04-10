@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+function main {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  local url_helm_Darwin="https://kubernetes-helm.storage.googleapis.com/helm-v2.3.0-darwin-amd64.tar.gz"
+  local url_helm_Linux="https://kubernetes-helm.storage.googleapis.com/helm-v2.3.0-darwin-amd64.tar.gz"
+
+  local url_helm="url_helm_$(uname -s)"
+  local fnm_helm="$(basename "${!url_helm}")"
+  cache curl "$fnm_helm" "${!url_helm}"
+
+  mkdir -p "$shome/vendor/helm-${HELM_VERSION}"
+  pushd "$shome/vendor/helm-${HELM_VERSION}"
+  tar xfz "/data/cache/curl/$fnm_helm"
+  popd
+
+  mkdir -p "$shome/bin"
+  pushd "$shome/bin"
+  (set +f; ln -nfs "../vendor/helm-${HELM_VERSION}"/*/helm "$shome/bin/helm")
+}
+
+main "$@"

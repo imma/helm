@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+function _helm_profile {
+  local shome="${_helm_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
+  PATH="$shome/bin:$PATH"
+
+  export HELM_VERSION='2.3.0'
+}
+
+_helm_profile
