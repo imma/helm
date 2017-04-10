@@ -11,14 +11,14 @@ function main {
   local fnm_helm="$(basename "${!url_helm}")"
   cache curl "$fnm_helm" "${!url_helm}"
 
-  mkdir -p "$shome/vendor/helm-${HELM_VERSION}"
-  pushd "$shome/vendor/helm-${HELM_VERSION}"
+  mkdir -p "$shome/vendor/helm-${HELM_VERSION}-$(uname -s)"
+  pushd "$shome/vendor/helm-${HELM_VERSION}-$(uname -s)"
   tar xfz "/data/cache/curl/$fnm_helm"
   popd
 
   mkdir -p "$shome/bin"
   pushd "$shome/bin"
-  (set +f; ln -nfs "../vendor/helm-${HELM_VERSION}"/*/helm "$shome/bin/helm")
+  (set +f; ln -nfs "../vendor/helm-${HELM_VERSION}-$(uname -s)"/*/helm "$shome/bin/helm")
 }
 
 main "$@"
