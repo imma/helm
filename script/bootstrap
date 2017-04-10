@@ -5,7 +5,7 @@ function main {
   source "$shome/script/profile"
 
   local url_helm_Darwin="https://kubernetes-helm.storage.googleapis.com/helm-v2.3.0-darwin-amd64.tar.gz"
-  local url_helm_Linux="https://kubernetes-helm.storage.googleapis.com/helm-v2.3.0-darwin-amd64.tar.gz"
+  local url_helm_Linux="https://kubernetes-helm.storage.googleapis.com/helm-v2.3.0-linux-amd64.tar.gz"
 
   local url_helm="url_helm_$(uname -s)"
   local fnm_helm="$(basename "${!url_helm}")"
